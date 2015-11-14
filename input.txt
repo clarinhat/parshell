@@ -1,0 +1,8 @@
+fibonacci 1000
+fibonacci 1999
+fibonacci 18889
+fibonacci 1987
+fibonacci 2333
+fibonacci 4567
+fibonacci 9864
+exit
