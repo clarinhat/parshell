@@ -19,7 +19,7 @@ void mutex_unlock(void)
 void mutex_init(void)
 {
 	if(pthread_mutex_init(&lock, NULL) != 0) { /* tenta iniciar o trinco, se nao consegue imprime o erro e sai */
-    	fprintf(stderr, "Error in pthread_mutex_init(lock)\n");
+		fprintf(stderr, "Error in pthread_mutex_init(lock)\n");
     	exit(EXIT_FAILURE);
   	}
 }
@@ -99,8 +99,16 @@ void cond_destroy_t()
 void thread_join(pthread_t thread)
 {
 	if(pthread_join(thread, NULL) != 0) { /* a tarefa principal tenta esperar pela monitora, se nao consegue imprime o erro e sai */
-    	fprintf(stderr, "Error in pthread_join(thread)\n");
-    	exit(EXIT_FAILURE);
+   		fprintf(stderr, "Error in pthread_join(thread)\n");
+   		exit(EXIT_FAILURE);
+  	}
+}
+
+void closef()
+{
+	if(fclose(fp) != 0) {
+   		fprintf(stderr, "Error closing the file\n");
+   		exit(EXIT_FAILURE);
   	}
 }
 
@@ -167,7 +175,7 @@ int main()
 			ex = 1;	/* varivel que avisa que foi feito o comando exit*/
 			mutex_unlock();
 			cond_signal_c();
-			fclose(fp);      /*	fecha o ficheiro */
+			closef();      /*	fecha o ficheiro */
 			thread_join(thread);	/* a tarefa principal vai esperar a monitora faça exit */
 			printList(pp); /* Imprime a lista de resultados dos processos */
 			cond_destroy_c();	/* Destruicao da variavel de condicao c */

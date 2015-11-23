@@ -1,5 +1,13 @@
 #include "proclist.h"
 
+void flush(void)
+{
+   if(fflush(fp) != 0) {
+       fprintf(stderr, "Error in pthread_mutex_lock()\n");
+       exit(EXIT_FAILURE);
+   }
+}
+
 spList* create_pp() /* Criar a lista */
 {
 	spList *arr;
@@ -45,7 +53,7 @@ void saveToList(spList *pp, int wp, int wes, int etime, int i)
 			sp->wes = wes; /* Gravar o estado de saida do processo */
 			tim += sp->rtime;
 			fprintf(fp, "iteracao: %d\npid: %d execution time: %d \ntotal execution time: %d\n", i, sp->pid, sp->rtime, tim);
-			fflush(fp);
+			flush();
 			return;
 		}
 		sp = sp->next;
